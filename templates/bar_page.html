@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <body>
+
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-sm12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade"
+                             lay-filter="LAY-index-dataview">
+                            <div carousel-item id="LAY-index-dataview">
+                                <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock content %}
+{% block js %}
+    <script>
+        layui.config({
+            base: '{% static "layuiadmin/" %}' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'bar', 'echarts'], function(){
+            var echarts = layui.echarts;
+            
+            var bar = echarts.init(document.getElementById('bar'), 'walden');
+            
+            var option = {
+                title: {
+                    text: '职位关键词前12',
+                    left: 'center',
+                    top: '3%'
+                },
+                // ... existing code ...
+            };
+
+            bar.setOption(option);
+        });
+    </script>
+{% endblock js %}
