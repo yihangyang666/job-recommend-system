@@ -1,55 +1,112 @@
-
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
 <body>
-
   <div class="layui-fluid">
     <div class="layui-card">
       <div class="layui-card-body">
+          {% csrf_token %}
           <table id="LAY-app-forum-list" lay-filter="LAY-app-forum-list"></table>
           {% verbatim %}
             <script type="text/html" id="table-forum-list">
                {{#  if(d.send_key == 0){ }}
               <a class="layui-btn layui-btn-sm layui-btn-sm" lay-event="send"><i class="layui-icon layui-icon-add-circle-fine"></i>投递</a>
                {{#  } else { }}
-              <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="send_1">取消投递</a>
+              <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="send_1">取消投递</a>
                {{#  } }}
             </script>
           {% endverbatim %}
       </div>
     </div>
   </div>
-  </body>
+</body>
 {% endblock %}
 
 {% block js %}
-  <script>
-  layui.config({
-    base: '{% static "layuiadmin/" %}' //静态资源所在路径
-  }).extend({
-    index: 'lib/index' //主入口模块
-  }).use(['index', 'send_list', 'table'], function() {
-      var $ = layui.$
-          , form = layui.form
-          , table = layui.table;
-
-
-          //执行重载
-          table.reload('LAY-app-forum-list', {
-              page:{curr:1},
-              where: field
-          });
-  });
-
-  function notNumber(val) {
-    var regPos = /^\d+(\.\d+)?$/; //非负浮点数
-    var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
-    if(regPos.test(val) || regNeg.test(val)) {
-        return false;
-        } else {
-        return true;
-        }
+<script>
+layui.config({
+  base: '{% static "layuiadmin/" %}' //静态资源所在路径
+}).extend({
+  index: 'lib/index' //主入口模块
+}).use(['index', 'table'], function(){
+  var table = layui.table
+  ,$ = layui.$;
+  
+  //渲染表格
+  table.render({
+    elem: '#LAY-app-forum-list'
+    ,url: '/send_list/' //数据接口
+    ,page: true //开启分页
+    ,limit: 15
+    ,cols: [[
+      {field: 'job_id', title: '职位编号', width: 100}
+      ,{field: 'name', title: '职位名称', width: 200}
+      ,{field: 'salary', title: '薪资待遇', width: 100}
+      ,{field: 'education', title: '学历要求', width: 100}
+      ,{field: 'experience', title: '经验要求', width: 100}
+      ,{field: 'place', title: '工作地点', width: 100}
+      ,{field: 'company', title: '公司名称', width: 200}
+      ,{field: 'company_type', title: '所属行业', width: 120}
+      ,{field: 'company_size', title: '公司规模', width: 120}
+      ,{field: 'created_at', title: '投递时间', width: 160}
+      ,{title: '操作', width: 150, align:'center', fixed: 'right', toolbar: '#table-forum-list'}
+    ]]
+    ,text: {
+      none: '暂无数据'
     }
-  </script>
+  });
+  
+  //监听工具条
+  table.on('tool(LAY-app-forum-list)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'send'){
+      layer.confirm('确定投递职位 "' + data.name + '" 吗？', function(index){
+        $.ajax({
+          type: 'POST',
+          url: '/send_job/',
+          data: {
+            job_id: data._id,
+            send_key: 0
+          },
+          success: function(res){
+            if(res.Code === 0){
+              layer.msg('投递成功');
+              table.reload('LAY-app-forum-list');
+            } else {
+              layer.msg(res.msg || '投递失败');
+            }
+          },
+          error: function(){
+            layer.msg('操作失败，请稍后重试');
+          }
+        });
+        layer.close(index);
+      });
+    } else if(obj.event === 'send_1'){
+      layer.confirm('确定取消投递 "' + data.name + '" 吗？', function(index){
+        $.ajax({
+          type: 'POST',
+          url: '/send_job/',
+          data: {
+            job_id: data._id,
+            send_key: 1
+          },
+          success: function(res){
+            if(res.Code === 0){
+              layer.msg('取消投递成功');
+              table.reload('LAY-app-forum-list');
+            } else {
+              layer.msg(res.msg || '操作失败');
+            }
+          },
+          error: function(){
+            layer.msg('操作失败，请稍后重试');
+          }
+        });
+        layer.close(index);
+      });
+    }
+  });
+});
+</script>
 {% endblock %}

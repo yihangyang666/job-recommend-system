@@ -88,38 +88,7 @@
                 <div class="layui-card">
                     <div class="layui-card-header">薪资排行TOP10</div>
                     <div class="layui-card-body">
-                        <table class="layui-table">
-                            <thead>
-                            <tr>
-                                <th>职位编号</th>
-                                <th>职位名称</th>
-                                <th>薪资待遇</th>
-                                <th>学历要求</th>
-                                <th>经验要求</th>
-                                <th>工作地点</th>
-                                <th>公司名称</th>
-                                <th>所属行业</th>
-                                <th>公司规模</th>
-                            </thead>
-                            <tbody>
-                            {% for job in job_data_10 %}
-                                <tr>
-                                    <td>{{ job.job_id }}</td>
-                                    <td>{{ job.name | truncatechars:16 }}</td>
-                                    <td>{{ job.salary }}</td>
-                                    <td>{{ job.education }}</td>
-                                    <td>{{ job.experience }}</td>
-                                    <td>{{ job.place }}</td>
-                                    <td>{{ job.company | truncatechars:16 }}</td>
-                                    <td>{{ job.label }}</td>
-                                    <td>{{ job.scale }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                        <div style="text-align: center;">
-                            <div id="test-laypage-demo0"></div>
-                        </div>
+                        <table id="salary-top10" lay-filter="salary-top10"></table>
                     </div>
                 </div>
             </div>
@@ -134,6 +103,31 @@
             base: '{% static "layuiadmin/" %}' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index', 'console']);
+        }).use(['index', 'console', 'table'], function(){
+            var table = layui.table;
+            
+            //薪资排行TOP10表格
+            table.render({
+                elem: '#salary-top10'
+                ,url: '/get_salary_top10/'
+                ,page: false
+                ,cols: [[
+                    {field: '_id', title: '职位编号', width: 180}
+                    ,{field: 'name', title: '职位名称', width: 200}
+                    ,{field: 'salary', title: '薪资待遇', width: 120}
+                    ,{field: 'education', title: '学历要求', width: 100}
+                    ,{field: 'experience', title: '经验要求', width: 100}
+                    ,{field: 'place', title: '工作地点', width: 120}
+                    ,{field: 'company', title: '公司名称', width: 200}
+                    ,{field: 'company_type', title: '所属行业', width: 120}
+                    ,{field: 'company_size', title: '公司规模', width: 120}
+                ]]
+                ,done: function(res){
+                    if(res.code !== 0){
+                        layer.msg(res.msg || '加载数据失败');
+                    }
+                }
+            });
+        });
     </script>
 {% endblock %}

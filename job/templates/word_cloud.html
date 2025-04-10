@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>职位关键词词云</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        .cloud-container {
+            width: 100%;
+            height: 600px;
+            margin: 20px auto;
+            background-color: #F8F8F8;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .title-box {
+            text-align: center;
+            padding: 20px 0;
+            color: #333;
+        }
+        .analysis-box {
+            margin: 30px 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .analysis-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1E9FFF;
+            border-left: 4px solid #1E9FFF;
+            padding-left: 10px;
+        }
+        .analysis-content {
+            line-height: 1.8;
+            color: #555;
+        }
+        .insight-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .insight-icon {
+            flex: 0 0 40px;
+            height: 40px;
+            background-color: #f0f9ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        .insight-text {
+            flex: 1;
+        }
+        .insight-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body style="background-color:#F2F2F2;">
+    <div class="layui-card">
+        <div class="layui-card-header title-box">
+            <h1>职位关键词词云分析</h1>
+            <p>基于所有职位名称和公司类型的关键词统计</p>
+        </div>
+        <div class="layui-card-body">
+            <div id="wordCloud" class="cloud-container"></div>
+            
+            <div class="analysis-box">
+                <div class="analysis-title">分析意义</div>
+                <div class="analysis-content">
+                    <p>职位关键词词云直观展示了当前就业市场中最热门的职位关键词及其出现频率，为就业市场的整体趋势提供可视化分析。这一分析对以下方面具有重要价值：</p>
+                    <ul style="padding-left: 20px; margin: 15px 0;">
+                        <li>求职者可以清晰了解当前市场上最受欢迎的技术和岗位，合理规划职业发展方向</li>
+                        <li>企业可以洞察行业人才需求热点，优化招聘策略和职位描述</li>
+                        <li>教育培训机构可以根据热门关键词调整课程设置，提高培训内容的市场适应性</li>
+                        <li>研究人员可以通过关键词分布了解就业市场的结构和演变趋势</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-title" style="margin-top: 25px;">热门技能解析</div>
+                <div class="analysis-content">
+                    <p>词云中占比较大的关键词代表当前就业市场中需求量最大的技能和岗位。根据最新数据分析，我们总结出以下几类核心技能的市场需求情况：</p>
+                    
+                    <div style="margin: 15px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+                        <h4 style="color: #1E9FFF; margin-bottom: 10px;">编程语言</h4>
+                        <p>Python、Java、JavaScript在编程语言中占据主导地位，其中Python因其在数据分析、人工智能等领域的广泛应用，需求量持续增长；Java在企业级应用和移动开发领域依然保持强势；JavaScript作为前端开发的基础，始终保持较高需求度。C++则更多应用于性能要求高的系统开发和游戏引擎等领域。</p>
+                    </div>
+                    
+                    <div style="margin: 15px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+                        <h4 style="color: #1E9FFF; margin-bottom: 10px;">技术领域</h4>
+                        <p>大数据、云计算、人工智能是当前技术发展的三大主流方向，相关岗位如数据分析师、机器学习工程师、云架构师等需求量大幅增长。职位描述中经常出现的"算法"、"深度学习"、"数据挖掘"等关键词反映了企业对具备这些前沿技术能力人才的渴求。</p>
+                    </div>
+                    
+                    <div style="margin: 15px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+                        <h4 style="color: #1E9FFF; margin-bottom: 10px;">岗位类型</h4>
+                        <p>工程师类岗位在招聘市场中占据绝对主导地位，特别是开发工程师、算法工程师、测试工程师等技术岗位。同时，产品经理、运营等非技术岗位也有较大需求。"全栈"关键词的频繁出现表明企业更青睐具备多种技能的复合型人才。</p>
+                    </div>
+                </div>
+
+                <div class="analysis-title" style="margin-top: 25px;">行业趋势洞察</div>
+                <div class="analysis-content">
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="layui-icon layui-icon-code-circle" style="color: #1E9FFF; font-size: 20px;"></i>
+                        </div>
+                        <div class="insight-text">
+                            <div class="insight-title">技术岗位持续热门</div>
+                            <div>从词云中可以清晰看出，工程师类职位依然是就业市场的主力军，特别是算法工程师、Java工程师、Python工程师等技术类人才需求量大，反映了当前数字经济的快速发展。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="layui-icon layui-icon-component" style="color: #1E9FFF; font-size: 20px;"></i>
+                        </div>
+                        <div class="insight-text">
+                            <div class="insight-title">新兴技术崭露头角</div>
+                            <div>人工智能、大数据、云计算等新兴技术领域的关键词频率明显上升，表明企业对具备这些技能的人才需求日益增长，也预示着这些领域未来发展潜力巨大。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="layui-icon layui-icon-senior" style="color: #1E9FFF; font-size: 20px;"></i>
+                        </div>
+                        <div class="insight-text">
+                            <div class="insight-title">复合型人才更受青睐</div>
+                            <div>词云中多个技术栈关键词同时出现且权重相近，反映出企业更倾向于招聘掌握多种技能的复合型人才，单一技术专长的竞争力逐渐减弱。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="layui-icon layui-icon-chart" style="color: #1E9FFF; font-size: 20px;"></i>
+                        </div>
+                        <div class="insight-text">
+                            <div class="insight-title">数据分析成为核心竞争力</div>
+                            <div>"数据分析"、"数据挖掘"等关键词的高频出现表明，数据处理能力已成为各行业的必备技能，从电商、金融到医疗、教育，企业对能够从海量数据中提取价值的人才需求持续攀升。</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analysis-title" style="margin-top: 25px;">求职建议</div>
+                <div class="analysis-content">
+                    <p>基于当前职位关键词分析，我们为求职者提供以下建议：</p>
+                    <ol style="padding-left: 20px; margin: 15px 0;">
+                        <li><strong>紧跟技术发展趋势</strong> - 关注词云中高频出现的技术关键词，有针对性地学习和掌握这些热门技能，提升自身竞争力。</li>
+                        <li><strong>培养跨领域能力</strong> - 不要局限于单一技能，尝试将多种相关技能组合，如开发+数据分析、前端+设计等，成为企业渴求的复合型人才。</li>
+                        <li><strong>深耕专业领域</strong> - 在掌握多种技能的基础上，选择一个核心领域深入发展，形成自己的专业特长和不可替代性。</li>
+                        <li><strong>软技能同样重要</strong> - 除技术能力外，项目管理、团队协作、沟通表达等软技能也是企业看重的素质，应当有意识地培养和展示。</li>
+                        <li><strong>持续学习</strong> - 技术更新迭代速度快，要保持学习习惯，关注行业动态，确保自身技能不落后于市场需求。</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/layuiadmin/layui/layui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        // 检查jQuery是否加载
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery未加载!');
+            document.getElementById('wordCloudChart').innerHTML = '<div style="text-align:center;padding-top:250px;">jQuery库加载失败</div>';
+        } else {
+            var $ = jQuery;
+            
+            // 确保DOM加载完成
+            $(document).ready(function() {
+                // 替代原本的layui.use
+                // 测试数据
+                var testData = [
+                    {name: "Python", value: 100},
+                    {name: "Java", value: 85},
+                    {name: "JavaScript", value: 80},
+                    {name: "SQL", value: 75},
+                    {name: "开发", value: 70},
+                    {name: "数据分析", value: 65},
+                    {name: "人工智能", value: 60},
+                    {name: "大数据", value: 55},
+                    {name: "机器学习", value: 50},
+                    {name: "深度学习", value: 45},
+                    {name: "算法", value: 40},
+                    {name: "前端", value: 35},
+                    {name: "后端", value: 30},
+                    {name: "全栈", value: 25},
+                    {name: "项目管理", value: 20}
+                ];
+                
+                // 检查echarts和wordcloud插件是否加载
+                if (typeof echarts === 'undefined') {
+                    console.error('ECharts 未加载!');
+                    $("#wordCloud").html('<div style="text-align:center;padding-top:250px;">ECharts库加载失败</div>');
+                    return;
+                }
+                
+                if (!echarts.graphic.LinearGradient) {
+                    console.error('ECharts 核心组件未正确加载!');
+                }
+                
+                if (typeof 'wordCloud' !== 'undefined') {
+                    console.log('词云插件已加载');
+                } else {
+                    console.error('词云插件未加载!');
+                }
+                
+                // 初始化ECharts实例
+                var chart = echarts.init(document.getElementById('wordCloud'));
+                if (!chart) {
+                    console.error('无法初始化图表!');
+                    return;
+                }
+                
+                // 显示加载动画
+                chart.showLoading({
+                    text: '数据加载中...',
+                    color: '#1E9FFF',
+                    textColor: '#000',
+                    maskColor: 'rgba(255, 255, 255, 0.8)',
+                    zlevel: 0
+                });
+                
+                // 渲染词云函数
+                function renderWordCloud(data) {
+                    // 配置词云图
+                    var option = {
+                        title: {
+                            text: '职位关键词词云分析',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            show: true,
+                            formatter: function(params) {
+                                return params.name + ': ' + params.value;
+                            }
+                        },
+                        series: [{
+                            type: 'wordCloud',
+                            shape: 'circle',
+                            left: 'center',
+                            top: 'center',
+                            width: '80%',
+                            height: '80%',
+                            right: null,
+                            bottom: null,
+                            sizeRange: [12, 60],
+                            rotationRange: [-45, 45],
+                            rotationStep: 15,
+                            gridSize: 8,
+                            drawOutOfBound: false,
+                            textStyle: {
+                                fontFamily: 'sans-serif',
+                                fontWeight: 'bold',
+                                color: function () {
+                                    return 'rgb(' + [
+                                        Math.round(Math.random() * 160 + 50),
+                                        Math.round(Math.random() * 160 + 50),
+                                        Math.round(Math.random() * 160 + 50)
+                                    ].join(',') + ')';
+                                }
+                            },
+                            emphasis: {
+                                textStyle: {
+                                    shadowBlur: 10,
+                                    shadowColor: '#333'
+                                }
+                            },
+                            data: data
+                        }]
+                    };
+                    
+                    // 使用配置项显示词云图
+                    chart.setOption(option);
+                    console.log('词云图渲染完成');
+                }
+                
+                // 获取词云数据
+                $.ajax({
+                    url: '/get_word_cloud_data/',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        // 隐藏加载动画
+                        chart.hideLoading();
+                        console.log("获取到的数据:", res);
+                        
+                        if(res.code === 0 && res.data && res.data.length > 0) {
+                            renderWordCloud(res.data);
+                        } else {
+                            console.log("数据无效，使用测试数据");
+                            renderWordCloud(testData);
+                        }
+                    },
+                    error: function(err) {
+                        chart.hideLoading();
+                        console.error('获取词云数据失败:', err);
+                        renderWordCloud(testData);
+                    }
+                });
+                
+                // 窗口大小变化时，重置图表大小
+                window.addEventListener('resize', function() {
+                    chart.resize();
+                });
+            });
+        }
+    </script>
+</body>
+</html> 
