@@ -22,15 +22,9 @@
             <p><i class="layui-icon layui-icon-home"></i> 公司名称：{{ job.company | truncatechars:20 }}</p>
           </div>
           <div class="layui-card-footer" style="text-align: center; padding-top: 10px;">
-            {% if job.is_sent %}
-            <button class="layui-btn layui-btn-disabled" disabled>
-              <i class="layui-icon layui-icon-ok"></i> 已投递
-            </button>
-            {% else %}
             <button class="layui-btn layui-btn-normal" onclick="send('{{ job.job_id }}', '{{ job.name }}')">
               <i class="layui-icon layui-icon-add-1"></i> 投递职位
             </button>
-            {% endif %}
           </div>
         </div>
       </div>
@@ -55,7 +49,7 @@ function send(job_id, job_name) {
 
   layer.confirm('确定投递职位 "' + job_name + '" 吗？', {
     btn: ['确定', '取消']
-  }, function(index) {
+  }, function() {
     $.ajax({
       type: 'POST',
       data: {
@@ -64,22 +58,14 @@ function send(job_id, job_name) {
       },
       url: '/send_job/',
       success: function(res) {
-        if(res.Code === 0) {
-          layer.msg('投递成功！');
-          // 延迟1秒后刷新页面，让用户看到成功提示
-          setTimeout(function() {
-            location.reload();
-          }, 1000);
-        } else {
-          layer.msg(res.msg);
-        }
+        layer.msg(res.msg);
+        location.reload();
       },
-      error: function(xhr) {
-        layer.msg('操作失败，请稍后重试');
+      error: function(response) {
+        layer.msg(response.msg);
       }
     });
-    layer.close(index);
   });
 }
 </script>
-{% endblock %}
+{% endblock js %}

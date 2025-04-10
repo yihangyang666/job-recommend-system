@@ -1,7 +1,10 @@
+
+
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
 <body>
+
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-col-sm12">
@@ -16,105 +19,9 @@
           </div>
         </div>
       </div>
-      
-      <div class="layui-col-sm12">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            <span class="layui-badge layui-bg-green">分析意义</span>
-          </div>
-          <div class="layui-card-body">
-            <p>学历要求分布分析直观展示了当前招聘市场对不同学历层次的需求情况，反映就业市场的学历门槛结构。这一分析对以下方面具有重要价值：</p>
-            <ul style="padding-left: 20px; margin: 15px 0;">
-              <li>求职者可以了解自身学历在就业市场中的竞争力和就业机会占比</li>
-              <li>高校学生可以了解未来就业市场对学历的要求，规划是否需要继续深造</li>
-              <li>企业可以参考行业学历要求标准，设置合理的人才筛选门槛</li>
-              <li>教育部门可以根据市场需求调整教育资源分配和人才培养计划</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      
-      <div class="layui-col-sm12">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            <span class="layui-badge layui-bg-cyan">数据洞察</span>
-          </div>
-          <div class="layui-card-body">
-            <div class="layui-row">
-              <div class="layui-col-sm4">
-                <div style="padding: 20px; background-color: #F8F8F8; border-radius: 5px; height: 100%;">
-                  <h3 style="margin-bottom: 10px; color: #666;"><i class="layui-icon layui-icon-read" style="font-size: 16px; color: #1E9FFF;"></i> 本科学历仍是主流门槛</h3>
-                  <p>数据显示，本科学历在职位要求中占据最大比例，表明本科教育仍然是就业市场的基本准入门槛，适用于大多数中层技术和管理岗位。</p>
-                </div>
-              </div>
-              <div class="layui-col-sm4">
-                <div style="padding: 20px; background-color: #F8F8F8; border-radius: 5px; height: 100%;">
-                  <h3 style="margin-bottom: 10px; color: #666;"><i class="layui-icon layui-icon-form" style="font-size: 16px; color: #1E9FFF;"></i> 学历与薪资正相关</h3>
-                  <p>研究生及以上学历的职位虽然占比较小，但通常对应更高的薪资水平和管理职位，特别是在研发、科研、咨询等专业技术领域，高学历优势明显。</p>
-                </div>
-              </div>
-              <div class="layui-col-sm4">
-                <div style="padding: 20px; background-color: #F8F8F8; border-radius: 5px; height: 100%;">
-                  <h3 style="margin-bottom: 10px; color: #666;"><i class="layui-icon layui-icon-flag" style="font-size: 16px; color: #1E9FFF;"></i> 学历要求行业差异</h3>
-                  <p>不同行业对学历要求差异明显，IT、金融、教育等行业学历要求普遍较高，而服务业、制造业等行业中对经验和实际技能的重视度高于学历。</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="layui-col-sm12">
-        <div class="layui-card">
-          <div class="layui-card-body" style="padding: 15px;">
-            <div class="layui-row layui-col-space15">
-              <div class="layui-col-sm6">
-                <table class="layui-table" lay-skin="line">
-                  <colgroup>
-                    <col width="50%">
-                    <col width="50%">
-                  </colgroup>
-                  <thead>
-                    <tr>
-                      <th>学历层次</th>
-                      <th>典型岗位类型</th>
-                    </tr> 
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>博士</td>
-                      <td>研究科学家、高级算法专家、首席技术官</td>
-                    </tr>
-                    <tr>
-                      <td>硕士</td>
-                      <td>研发工程师、数据科学家、产品经理</td>
-                    </tr>
-                    <tr>
-                      <td>本科</td>
-                      <td>软件开发、市场营销、人力资源</td>
-                    </tr>
-                    <tr>
-                      <td>大专</td>
-                      <td>销售代表、技术支持、行政助理</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="layui-col-sm6">
-                <blockquote class="layui-elem-quote">
-                  <h3 style="margin-bottom: 10px;">注意事项</h3>
-                  <p>① 学历只是求职过程中的参考因素之一，实际工作能力和经验同样重要</p>
-                  <p>② 部分职位虽然标明学历要求，但对于有丰富经验的求职者通常会适当放宽</p>
-                  <p>③ IT等技术领域正逐渐重视实际编程能力而非仅看学历背景</p>
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-</body>
+  </body>
 {% endblock content %}
 {% block js %}
   <script>

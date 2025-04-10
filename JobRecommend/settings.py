@@ -81,16 +81,23 @@ WSGI_APPLICATION = 'JobRecommend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "recommend_job",  # 数据名
+        "USER": "root",  # 用户名
+        "PASSWORD": "123456",
+        "HOST": "localhost",  # 域名
+        "PORT": "3306",
     }
 }
-
-# MongoDB settings
-MONGODB_URI = 'mongodb://localhost:27017/'
-MONGODB_NAME = 'job_recommend_db'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

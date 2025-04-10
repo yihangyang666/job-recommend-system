@@ -1,7 +1,10 @@
+
+
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
 <body>
+
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-col-sm12">
@@ -16,56 +19,9 @@
           </div>
         </div>
       </div>
-      
-      <div class="layui-col-sm12">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            <span class="layui-badge layui-bg-blue">分析意义</span>
-          </div>
-          <div class="layui-card-body">
-            <p>薪资待遇分布分析揭示了当前招聘市场中各薪资区间的职位分布情况，直观反映就业市场的薪酬结构。这一分析对以下方面具有重要价值：</p>
-            <ul style="padding-left: 20px; margin: 15px 0;">
-              <li>求职者可以了解不同薪资区间的职位占比，合理设定薪资期望，提高求职效率</li>
-              <li>企业可以了解市场薪资水平，制定具有竞争力的薪酬方案</li>
-              <li>教育机构可以了解不同职业方向的薪资区间，为学生提供更精准的职业规划建议</li>
-              <li>政策制定者可以了解行业薪资结构，为收入分配政策提供参考依据</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      
-      <div class="layui-col-sm12">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            <span class="layui-badge layui-bg-orange">数据洞察</span>
-          </div>
-          <div class="layui-card-body">
-            <div class="layui-row">
-              <div class="layui-col-sm4">
-                <div style="padding: 20px; background-color: #F8F8F8; border-radius: 5px; height: 100%;">
-                  <h3 style="margin-bottom: 10px; color: #666;"><i class="layui-icon layui-icon-chart-screen" style="font-size: 16px; color: #1E9FFF;"></i> 市场薪资分布呈金字塔结构</h3>
-                  <p>从数据可见，薪资分布呈现典型的金字塔结构，随着薪资水平提高，职位数量逐渐减少。中等薪资区间(10K-20K)的职位占比最大，反映了市场的主流薪资水平。</p>
-                </div>
-              </div>
-              <div class="layui-col-sm4">
-                <div style="padding: 20px; background-color: #F8F8F8; border-radius: 5px; height: 100%;">
-                  <h3 style="margin-bottom: 10px; color: #666;"><i class="layui-icon layui-icon-dollar" style="font-size: 16px; color: #1E9FFF;"></i> 高薪岗位的行业集中度</h3>
-                  <p>30K以上高薪岗位主要集中在互联网、金融、IT等领域的高级技术和管理岗位，这些领域对专业技能和经验要求较高，但提供的薪资水平也远高于市场平均水平。</p>
-                </div>
-              </div>
-              <div class="layui-col-sm4">
-                <div style="padding: 20px; background-color: #F8F8F8; border-radius: 5px; height: 100%;">
-                  <h3 style="margin-bottom: 10px; color: #666;"><i class="layui-icon layui-icon-fire" style="font-size: 16px; color: #1E9FFF;"></i> 薪资与技能强相关</h3>
-                  <p>数据显示薪资水平与职位要求的技能复杂度、稀缺性高度相关。掌握热门技术栈(如AI、大数据、云计算)的人才更容易获得高薪职位，体现了市场对核心技术人才的渴求。</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-</body>
+  </body>
 {% endblock content %}
 {% block js %}
   <script>

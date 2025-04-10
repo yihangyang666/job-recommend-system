@@ -42,15 +42,4 @@ urlpatterns = [
     path('edu/', views.edu, name="edu"),
     path('bar_page/', views.bar_page, name="bar_page"),
     path('bar/', views.bar, name="bar"),
-    path('get_salary_top10/', views.get_salary_top10),  # 添加新的路由
-    
-    # 新增可视化页面的URL路由
-    path('word_cloud/', views.word_cloud_page, name="word_cloud"),
-    path('get_word_cloud_data/', views.get_word_cloud_data, name="get_word_cloud_data"),
-    path('geo_distribution/', views.geo_distribution_page, name="geo_distribution"),
-    path('get_geo_distribution_data/', views.get_geo_distribution_data, name="get_geo_distribution_data"),
-    path('company_scale/', views.company_scale_page, name="company_scale"),
-    path('get_company_scale_data/', views.get_company_scale_data, name="get_company_scale_data"),
-    path('experience_analysis/', views.experience_analysis_page, name="experience_analysis"),
-    path('get_experience_data/', views.get_experience_data, name="get_experience_data"),
 ]
