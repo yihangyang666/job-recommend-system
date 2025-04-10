@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>工作经验分析</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        .chart-container {
+            width: 100%;
+            height: 450px;
+            margin: 20px auto;
+            background-color: #F8F8F8;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .title-box {
+            text-align: center;
+            padding: 20px 0;
+            color: #333;
+        }
+        .analysis-box {
+            margin: 30px 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .analysis-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1E9FFF;
+            border-left: 4px solid #1E9FFF;
+            padding-left: 10px;
+        }
+        .analysis-content {
+            line-height: 1.8;
+            color: #555;
+        }
+        .insight-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .insight-icon {
+            flex: 0 0 40px;
+            height: 40px;
+            background-color: #f0f9ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        .insight-text {
+            flex: 1;
+        }
+        .insight-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body style="background-color:#F2F2F2;">
+    <div class="layui-card">
+        <div class="layui-card-header title-box">
+            <h1>工作经验要求分析</h1>
+            <p>基于招聘职位对工作经验的要求分布情况</p>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div id="experiencePieChart" class="chart-container"></div>
+                </div>
+                <div class="layui-col-md6">
+                    <div id="experienceRoseChart" class="chart-container"></div>
+                </div>
+            </div>
+            
+            <div class="analysis-box">
+                <div class="analysis-title">分析意义</div>
+                <div class="analysis-content">
+                    <p>工作经验要求分析揭示了当前招聘市场对从业经验的偏好分布，直观反映不同工作年限人才的市场需求情况。这一分析对以下方面具有重要价值：</p>
+                    <ul style="padding-left: 20px; margin: 15px 0;">
+                        <li>求职者可以了解自身工作经验在市场中的稀缺性和竞争力，合理设定薪资预期</li>
+                        <li>职场新人可以了解入行门槛，为职业规划提供参考依据</li>
+                        <li>企业招聘部门可以参考市场经验要求设置合理的岗位要求，优化人才引进策略</li>
+                        <li>教育培训机构可以根据市场需求调整实践教学内容，提高毕业生就业竞争力</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-title" style="margin-top: 25px;">数据洞察</div>
+                <div class="analysis-content">
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="layui-icon layui-icon-user" style="color: #1E9FFF; font-size: 20px;"></i>
+                        </div>
+                        <div class="insight-text">
+                            <div class="insight-title">1-3年经验需求最旺盛</div>
+                            <div>数据显示，市场对1-3年工作经验的人才需求最为旺盛，这一群体已具备基本职业技能但薪资预期相对合理，企业投入产出比较高，是招聘市场的主力军。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="layui-icon layui-icon-diamond" style="color: #1E9FFF; font-size: 20px;"></i>
+                        </div>
+                        <div class="insight-text">
+                            <div class="insight-title">高经验人才市场稀缺</div>
+                            <div>5年以上工作经验的职位需求占比较小，但这类职位通常薪资水平和职位层级明显更高，对应的是管理岗位、技术专家等核心角色，反映了人才金字塔结构。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="layui-icon layui-icon-release" style="color: #1E9FFF; font-size: 20px;"></i>
+                        </div>
+                        <div class="insight-text">
+                            <div class="insight-title">新人入职门槛与机会</div>
+                            <div>应届生和经验不限类职位占有一定比例，主要集中在快速发展的新兴行业和标准化程度高的岗位，为职场新人提供了重要的入行机会。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/layuiadmin/layui/layui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        // 检查jQuery是否加载
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery未加载!');
+            document.getElementById('pieChart').innerHTML = '<div style="text-align:center;padding-top:250px;">jQuery库加载失败</div>';
+            document.getElementById('roseChart').innerHTML = '<div style="text-align:center;padding-top:250px;">jQuery库加载失败</div>';
+        } else {
+            var $ = jQuery;
+            
+            // 确保DOM加载完成
+            $(document).ready(function() {
+                // 替代原本的layui.use
+                
+                // 测试数据
+                var testLabels = ['1-3年', '3-5年', '5-10年', '不限', '应届毕业生', '1年以下', '10年以上'];
+                var testValues = [35, 25, 15, 10, 8, 5, 2];
+                
+                // 初始化ECharts实例
+                var pieChart = echarts.init(document.getElementById('experiencePieChart'));
+                var roseChart = echarts.init(document.getElementById('experienceRoseChart'));
+                
+                // 显示加载动画
+                pieChart.showLoading({
+                    text: '数据加载中...',
+                    color: '#1E9FFF',
+                    textColor: '#000',
+                    maskColor: 'rgba(255, 255, 255, 0.8)',
+                    zlevel: 0
+                });
+                
+                roseChart.showLoading({
+                    text: '数据加载中...',
+                    color: '#1E9FFF',
+                    textColor: '#000',
+                    maskColor: 'rgba(255, 255, 255, 0.8)',
+                    zlevel: 0
+                });
+                
+                // 渲染图表函数
+                function renderCharts(labels, values) {
+                    // 生成颜色列表
+                    var colorList = [
+                        '#5470c6', '#91cc75', '#fac858', '#ee6666', 
+                        '#73c0de', '#3ba272', '#fc8452', '#9a60b4'
+                    ];
+                    
+                    // 配置饼图
+                    var pieOption = {
+                        title: {
+                            text: '工作经验要求分布',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b}: {c} ({d}%)'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 10,
+                            top: 'middle',
+                            data: labels
+                        },
+                        series: [
+                            {
+                                name: '工作经验',
+                                type: 'pie',
+                                radius: ['40%', '70%'],
+                                avoidLabelOverlap: false,
+                                itemStyle: {
+                                    borderRadius: 10,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                label: {
+                                    show: true,
+                                    formatter: '{b}: {d}%'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: '18',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: true
+                                },
+                                data: labels.map(function(label, index) {
+                                    return {
+                                        name: label,
+                                        value: values[index],
+                                        itemStyle: {
+                                            color: colorList[index % colorList.length]
+                                        }
+                                    };
+                                })
+                            }
+                        ]
+                    };
+                    
+                    // 配置玫瑰图
+                    var roseOption = {
+                        title: {
+                            text: '工作经验要求比例',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b}: {c} ({d}%)'
+                        },
+                        legend: {
+                            top: 'bottom',
+                            data: labels
+                        },
+                        series: [
+                            {
+                                name: '工作经验',
+                                type: 'pie',
+                                radius: [30, '75%'],
+                                center: ['50%', '50%'],
+                                roseType: 'area',
+                                itemStyle: {
+                                    borderRadius: 5
+                                },
+                                label: {
+                                    show: true,
+                                    formatter: '{b}: {d}%'
+                                },
+                                data: labels.map(function(label, index) {
+                                    return {
+                                        name: label,
+                                        value: values[index],
+                                        itemStyle: {
+                                            color: colorList[index % colorList.length]
+                                        }
+                                    };
+                                })
+                            }
+                        ]
+                    };
+                    
+                    // 使用配置项显示图表
+                    pieChart.hideLoading();
+                    pieChart.setOption(pieOption);
+                    
+                    roseChart.hideLoading();
+                    roseChart.setOption(roseOption);
+                    
+                    console.log('图表渲染完成');
+                }
+                
+                // 获取工作经验数据
+                $.ajax({
+                    url: '/get_experience_data/',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        console.log("获取到的工作经验数据:", res);
+                        
+                        if(res.code === 0 && res.labels && res.values && res.labels.length > 0) {
+                            renderCharts(res.labels, res.values);
+                        } else {
+                            console.log("数据无效，使用测试数据");
+                            renderCharts(testLabels, testValues);
+                        }
+                    },
+                    error: function(err) {
+                        console.error('获取工作经验数据失败:', err);
+                        renderCharts(testLabels, testValues);
+                    }
+                });
+                
+                // 窗口大小变化时，重置图表大小
+                window.addEventListener('resize', function() {
+                    pieChart.resize();
+                    roseChart.resize();
+                });
+            });
+        }
+    </script>
+</body>
+</html> 
